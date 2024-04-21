@@ -1,41 +1,48 @@
-import React, { useState } from "react";
-import { FormGroup, Input, Label, Button, Row, Col,Container } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import {
+  FormGroup,
+  Input,
+  Label,
+  Button,
+  Row,
+  Col,
+  Container,
+} from "reactstrap";
 import { users as data } from "../constant/MokData";
 
 const SearchCard = ({ users, setUsers }) => {
-  const [email, setEmail] = useState();
-  const [city, setCity] = useState();
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
 
   const searchBarHandler = () => {
-    console.log("ok");
-    if (!city && !email) {
-      setUsers(data);
+    console.log(`city.length >3 && email.length `)
+    if (!city && !email ) {
       console.log("!city && !email");
-    } else if (email && !city) {
-      console.log("email && !city");
+      setUsers(data);
+
+    } else if (email && !city ) {
       const newData = data.filter((user) =>
         user.email.toLowerCase().includes(email)
       );
-      console.log(newData);
       setUsers(newData);
-    } else if (city && !email) {
-      console.log("city && !email");
+    } else if (city && !email && city.length >3 ) {
       const newData = data.filter((user) =>
         user.city.toLowerCase().includes(city)
       );
-      console.log(newData);
       setUsers(newData);
-    } else if (city && email) {
-      console.log("email && city");
+    } else if (city && email && city.length >3) {
       const newData = data.filter(
         (user) =>
           user.city.toLowerCase().includes(city) &&
           user.email.toLowerCase().includes(email)
       );
-      //   console.log(newData);
       setUsers(newData);
     }
   };
+  useEffect(() => {
+    
+    searchBarHandler();
+  }, [email, city]);
 
   return (
     <>
@@ -67,11 +74,7 @@ const SearchCard = ({ users, setUsers }) => {
               onChange={(e) => setCity(e.target.value.toLowerCase())}
             />
           </Col>
-          <Col className="bg-light ">
-            <Button color="primary" onClick={() => searchBarHandler()}>
-              search
-            </Button>
-          </Col>
+         
         </Row>
       </Container>
     </>

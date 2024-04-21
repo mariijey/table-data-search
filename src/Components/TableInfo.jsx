@@ -6,9 +6,9 @@ const TableInfo = ({users}) => {
   
     
   return (
-    <Table dark bordered hover responsive size="">
+    <Table bordered striped hover responsive size="">
       <thead>
-        <tr>
+        <tr className="table-primary">
           <th>#</th>
           <th>First Name</th>
           <th>Nickname</th>
@@ -21,7 +21,7 @@ const TableInfo = ({users}) => {
       </thead>
       <tbody>
 {        users.map(user =>
-               <tr key={user.id}>
+               <tr key={user.id} className="table-secondary">
                <th scope="row">{user.id}</th>
                <td>{user.name}</td>
                <td>{user.nickName}</td>
